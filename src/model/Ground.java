@@ -1,5 +1,6 @@
 package model;
 
+import top.Common;
 import top.Randomizer;
 
 public class Ground implements ActiveObject {
@@ -7,17 +8,14 @@ public class Ground implements ActiveObject {
 	public static final int FLAT = 0;
 	public static final int HOLE = 1;
 
-	private static final int arraySize = 20;
-
 	private PushableArray ground;
 
-	private static final int stepDivider = 10;
 	private int counter;
 
 	private int beenHole;
 
 	public Ground() {
-		int[] initialGround = new int[arraySize];
+		int[] initialGround = new int[Common.arraySize];
 		for (int i = 0; i < initialGround.length; i++) {
 			initialGround[i] = FLAT;
 		}
@@ -29,16 +27,16 @@ public class Ground implements ActiveObject {
 
 	public void step() {
 		counter++;
-		if (counter == stepDivider) {
+		if (counter == Common.stepDivider) {
 			counter = 0;
 
 			int newElement;
 
 			if (beenHole == 0) {
-				newElement = Randomizer.chanceByPercent(30) ? HOLE : FLAT;
+				newElement = Randomizer.chanceByPercent(Common.holeProbability) ? HOLE : FLAT;
 
 				if (newElement == HOLE) {
-					beenHole = 2;
+					beenHole = Common.holeDistance;
 				}
 			} else {
 				newElement = FLAT;
@@ -58,7 +56,7 @@ public class Ground implements ActiveObject {
 	}
 
 	public float getMovedPercent() {
-		return (float) counter / stepDivider;
+		return (float) counter / Common.stepDivider;
 	}
 
 }
