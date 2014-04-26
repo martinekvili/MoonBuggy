@@ -33,7 +33,8 @@ public class Ground implements ActiveObject {
 			int newElement;
 
 			if (beenHole == 0) {
-				newElement = Randomizer.chanceByPercent(Common.holeProbability) ? HOLE : FLAT;
+				newElement = Randomizer.chanceByPercent(Common.holeProbability) ? HOLE
+						: FLAT;
 
 				if (newElement == HOLE) {
 					beenHole = Common.holeDistance;

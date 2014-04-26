@@ -17,7 +17,7 @@ public class MoonBuggy extends MIDlet {
 	protected void startApp() throws MIDletStateChangeException {
 		gc = new GameCanvas();
 		Game g = new Game(gc);
-		
+
 		GroundView gv = new GroundView(g.getGround());
 		BuggyView bv = new BuggyView(g.getBuggy());
 		PointView pv = new PointView(g);
@@ -31,8 +31,6 @@ public class MoonBuggy extends MIDlet {
 
 		g.start();
 	}
-
-	
 
 	protected void destroyApp(boolean arg0) throws MIDletStateChangeException {
 	}

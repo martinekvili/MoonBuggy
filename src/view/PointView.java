@@ -5,11 +5,9 @@ import javax.microedition.lcdui.Graphics;
 import model.Game;
 
 public class PointView implements ViewObject {
-	
+
 	private Game game;
-	
-	//private GameCanvas canvas;
-	
+
 	public PointView(Game g) {
 		game = g;
 	}

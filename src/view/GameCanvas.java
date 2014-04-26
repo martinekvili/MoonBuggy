@@ -10,13 +10,13 @@ import model.Buggy;
 public class GameCanvas extends Canvas {
 
 	private Vector views;
-	
+
 	private Buggy buggy;
 
 	public GameCanvas() {
 		views = new Vector();
 	}
-	
+
 	public void setBuggy(Buggy b) {
 		buggy = b;
 	}
@@ -39,5 +39,5 @@ public class GameCanvas extends Canvas {
 	protected void pointerPressed(int x, int y) {
 		buggy.setJump();
 	}
-	
+
 }
