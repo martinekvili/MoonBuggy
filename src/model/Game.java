@@ -15,6 +15,8 @@ public class Game {
 	
 	private GameCanvas view;
 	
+	private int points;
+	
 	public Game(GameCanvas gc) {
 		ground = new Ground();
 		buggy = new Buggy();
@@ -22,6 +24,8 @@ public class Game {
 		view = gc;
 		
 		timer = new Timer();
+		
+		points = 0;
 	}
 	
 	public Ground getGround() {
@@ -32,7 +36,13 @@ public class Game {
 		return buggy;
 	}
 	
+	public int getPoints() {
+		return points;
+	}
+	
 	private void step() {
+		points++;
+		
 		ground.step();
 		buggy.step();
 		
@@ -54,6 +64,7 @@ public class Game {
 		public void run() {
 			step();
 			view.repaint(0, view.getHeight() - 100, view.getHeight(), 100);
+			view.repaint(0, 0, 100, 100);
 		}
 
 	}

@@ -8,6 +8,7 @@ import model.Game;
 import view.BuggyView;
 import view.GameCanvas;
 import view.GroundView;
+import view.PointView;
 
 public class MoonBuggy extends MIDlet {
 
@@ -19,9 +20,11 @@ public class MoonBuggy extends MIDlet {
 		
 		GroundView gv = new GroundView(g.getGround());
 		BuggyView bv = new BuggyView(g.getBuggy());
+		PointView pv = new PointView(g);
 
 		gc.addView(gv);
 		gc.addView(bv);
+		gc.addView(pv);
 		gc.setBuggy(g.getBuggy());
 
 		Display.getDisplay(this).setCurrent(gc);
