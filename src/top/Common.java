@@ -5,8 +5,8 @@ public class Common {
 	// GROUND constants
 
 	public static final int arraySize = 15;
-	public static final int stepDivider = 10;
-	public static final int holeDistance = 2;
+	public static final int stepDivider = 5;
+	public static final int holeDistance = 3;
 	public static final int holeProbability = 30;
 
 	// BUGGY constants

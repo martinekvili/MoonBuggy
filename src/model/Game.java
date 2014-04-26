@@ -53,7 +53,7 @@ public class Game {
 
 		public void run() {
 			step();
-			view.repaint();
+			view.repaint(0, view.getHeight() - 100, view.getHeight(), 100);
 		}
 
 	}
