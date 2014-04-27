@@ -3,8 +3,8 @@ package model;
 import top.Common;
 
 public abstract class Environment implements ActiveObject {
-	
-	private PushableArray environment;
+
+	protected PushableArray environment;
 
 	private int counter;
 
@@ -13,7 +13,7 @@ public abstract class Environment implements ActiveObject {
 
 		counter = 0;
 	}
-	
+
 	protected abstract int[] getInitialArray();
 
 	public void step() {
@@ -24,8 +24,10 @@ public abstract class Environment implements ActiveObject {
 			environment.push(getNewElement());
 		}
 	}
-	
+
 	protected abstract int getNewElement();
+
+	protected abstract boolean isCollision(int where);
 
 	public int get(int which) {
 		return environment.get(which);

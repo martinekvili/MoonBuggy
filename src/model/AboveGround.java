@@ -20,6 +20,10 @@ public class AboveGround extends Environment {
 	protected int getNewElement() {
 		return Randomizer.chanceByPercent(20) ? OBSTACLE : NOTHING;
 	}
+	protected boolean isCollision(int where) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 
 }

@@ -5,6 +5,7 @@ import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
 
 import model.Game;
+import view.AboveGroundView;
 import view.BuggyView;
 import view.GameCanvas;
 import view.GroundView;
@@ -19,12 +20,14 @@ public class MoonBuggy extends MIDlet {
 		Game g = new Game(gc);
 
 		GroundView gv = new GroundView(g.getGround());
+		AboveGroundView av = new AboveGroundView(g.getAboveGround());
 		BuggyView bv = new BuggyView(g.getBuggy());
 		PointView pv = new PointView(g);
 
 		gc.addView(gv);
 		gc.addView(bv);
 		gc.addView(pv);
+		gc.addView(av);
 		gc.setBuggy(g.getBuggy());
 
 		Display.getDisplay(this).setCurrent(gc);

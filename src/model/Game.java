@@ -10,6 +10,7 @@ public class Game {
 
 	private Ground ground;
 	private Buggy buggy;
+	private AboveGround aboveGround;
 
 	private Timer timer;
 
@@ -20,6 +21,7 @@ public class Game {
 	public Game(GameCanvas gc) {
 		ground = new Ground();
 		buggy = new Buggy();
+		aboveGround = new AboveGround();
 
 		view = gc;
 
@@ -35,6 +37,10 @@ public class Game {
 	public Buggy getBuggy() {
 		return buggy;
 	}
+	
+	public AboveGround getAboveGround() {
+		return aboveGround;
+	}
 
 	public int getPoints() {
 		return points;
@@ -45,9 +51,10 @@ public class Game {
 
 		ground.step();
 		buggy.step();
+		aboveGround.step();
 
 		if (!buggy.isJumping()
-				&& ground.get(Common.placeOnGround) == Ground.HOLE) {
+				&& ground.isCollision(Common.placeOnGround)) {
 			stop();
 		}
 	}
