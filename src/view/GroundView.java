@@ -4,21 +4,12 @@ import javax.microedition.lcdui.Graphics;
 
 import model.Ground;
 
-public class GroundView implements ViewObject {
+public class GroundView extends ViewObject {
 
 	private Ground ground;
-	private GameCanvas canvas;
-
-	private int width;
 
 	public GroundView(Ground g) {
 		ground = g;
-	}
-
-	public void setCanvas(GameCanvas gc) {
-		canvas = gc;
-
-		width = canvas.getWidth() / (ground.size() - 2);
 	}
 
 	public void paintMe(Graphics g) {

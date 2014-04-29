@@ -5,20 +5,20 @@ import java.util.Vector;
 import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Graphics;
 
-import model.Buggy;
+import model.Game;
 
 public class GameCanvas extends Canvas {
 
 	private Vector views;
 
-	private Buggy buggy;
+	private Game game;
 
 	public GameCanvas() {
 		views = new Vector();
 	}
 
-	public void setBuggy(Buggy b) {
-		buggy = b;
+	public void setGame(Game g) {
+		game = g;
 	}
 
 	public void addView(ViewObject newView) {
@@ -37,7 +37,12 @@ public class GameCanvas extends Canvas {
 	}
 
 	protected void pointerPressed(int x, int y) {
-		buggy.setJump();
+		game.setJump();
+		game.addBullet();
+	}
+
+	public void removeView(ViewObject view) {
+		views.removeElement(view);
 	}
 
 }

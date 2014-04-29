@@ -2,10 +2,20 @@ package view;
 
 import javax.microedition.lcdui.Graphics;
 
-public interface ViewObject {
+import top.Common;
 
-	void paintMe(Graphics g);
+public abstract class ViewObject {
+	
+	protected GameCanvas canvas;
+	
+	protected int width;
 
-	void setCanvas(GameCanvas gc);
+	public abstract void paintMe(Graphics g);
+
+	public void setCanvas(GameCanvas gc) {
+		canvas = gc;
+
+		width = canvas.getWidth() / (Common.arraySize - 2);
+	}
 
 }

@@ -4,13 +4,9 @@ import javax.microedition.lcdui.Graphics;
 
 import model.AboveGround;
 
-public class AboveGroundView implements ViewObject {
-	
-	private GameCanvas canvas;
+public class AboveGroundView extends ViewObject {
 	
 	private AboveGround model;
-	
-	private int width;
 	
 	public AboveGroundView (AboveGround a) {
 		model = a;
@@ -26,12 +22,6 @@ public class AboveGroundView implements ViewObject {
 						20);
 			}
 		}
-	}
-
-	public void setCanvas(GameCanvas gc) {
-		canvas = gc;
-		
-		width = canvas.getWidth() / (model.size() - 2);
 	}
 
 }

@@ -4,7 +4,7 @@ import javax.microedition.lcdui.Graphics;
 
 import model.Game;
 
-public class PointView implements ViewObject {
+public class PointView extends ViewObject {
 
 	private Game game;
 
@@ -15,9 +15,6 @@ public class PointView implements ViewObject {
 	public void paintMe(Graphics g) {
 		g.setColor(255, 255, 0);
 		g.drawString(Integer.toString(game.getPoints()), 20, 20, 0);
-	}
-
-	public void setCanvas(GameCanvas gc) {
 	}
 
 }

@@ -28,6 +28,17 @@ public class PushableArray {
 			return array[which];
 		}
 	}
+	
+	public void set(int which, int value) {
+		if (which < 0 || which >= array.length) {
+			throw new ArrayIndexOutOfBoundsException();
+		} else {
+			which += placeToInsert;
+			which %= array.length;
+
+			array[which] = value;
+		}
+	}
 
 	public int size() {
 		return array.length;

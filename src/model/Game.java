@@ -2,8 +2,10 @@ package model;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Vector;
 
 import top.Common;
+import view.BulletView;
 import view.GameCanvas;
 
 public class Game {
@@ -11,6 +13,8 @@ public class Game {
 	private Ground ground;
 	private Buggy buggy;
 	private AboveGround aboveGround;
+	
+	private Vector bullets;
 
 	private Timer timer;
 
@@ -20,8 +24,11 @@ public class Game {
 
 	public Game(GameCanvas gc) {
 		ground = new Ground();
-		buggy = new Buggy();
 		aboveGround = new AboveGround();
+		
+		buggy = new Buggy(this, ground, aboveGround);
+		
+		bullets = new Vector();
 
 		view = gc;
 
@@ -45,18 +52,34 @@ public class Game {
 	public int getPoints() {
 		return points;
 	}
+	
+	public void setJump() {
+		buggy.setJump();
+	}
+	
+	public void addBullet() {
+		Bullet newBullet = new Bullet(this, aboveGround, Common.placeOnGround + 1, buggy.getJumpPercentage());
+		
+		bullets.addElement(newBullet);
+		
+		view.addView(new BulletView(newBullet));
+	}	
+	
+	public void removeBullet(Bullet bullet) {
+		bullets.removeElement(bullet);
+	}
 
 	private void step() {
 		points++;
 
 		ground.step();
-		buggy.step();
 		aboveGround.step();
-
-		if (!buggy.isJumping()
-				&& ground.isCollision(Common.placeOnGround)) {
-			stop();
+		
+		for (int i = 0; i < bullets.size(); i++) {
+			((ActiveObject) bullets.elementAt(i)).step();
 		}
+		
+		buggy.step();
 	}
 
 	public void start() {
@@ -65,6 +88,10 @@ public class Game {
 
 	public void stop() {
 		timer.cancel();
+	}
+	
+	public void gameOver() {
+		stop();
 	}
 
 	private class GameStepper extends TimerTask {
@@ -76,5 +103,5 @@ public class Game {
 		}
 
 	}
-
+	
 }

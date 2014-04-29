@@ -5,11 +5,7 @@ import javax.microedition.lcdui.Graphics;
 import model.Buggy;
 import top.Common;
 
-public class BuggyView implements ViewObject {
-
-	private GameCanvas canvas;
-
-	private int width;
+public class BuggyView extends ViewObject {
 
 	private Buggy buggy;
 
@@ -29,12 +25,6 @@ public class BuggyView implements ViewObject {
 
 		g.fillRect((Common.placeOnGround - 1) * width, canvas.getHeight() - 35
 				- height, width, 10);
-	}
-
-	public void setCanvas(GameCanvas gc) {
-		canvas = gc;
-
-		width = canvas.getWidth() / (Common.arraySize - 2);
 	}
 
 }

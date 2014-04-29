@@ -3,10 +3,19 @@ package model;
 import top.Common;
 
 public class Buggy implements ActiveObject {
+	
+	private Game game;
+	
+	private Ground ground;
+	private AboveGround aboveGround;
 
 	private int jumping;
 
-	public Buggy() {
+	public Buggy(Game game, Ground ground, AboveGround aboveGround) {
+		this.game = game;
+		this.ground = ground;
+		this.aboveGround = aboveGround;
+		
 		jumping = 0;
 	}
 
@@ -23,6 +32,15 @@ public class Buggy implements ActiveObject {
 	public void step() {
 		if (jumping > 0) {
 			jumping--;
+		}
+		else {
+			if (ground.isCollision(Common.placeOnGround)) {
+				game.gameOver();
+			}
+		}
+		
+		if (aboveGround.isCollision(Common.placeOnGround)) {
+			game.gameOver();
 		}
 	}
 
