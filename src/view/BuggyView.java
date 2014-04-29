@@ -6,6 +6,8 @@ import model.Buggy;
 import top.Common;
 
 public class BuggyView extends ViewObject {
+	
+	private final int length = 15;
 
 	private Buggy buggy;
 
@@ -23,8 +25,8 @@ public class BuggyView extends ViewObject {
 
 		int height = (int) (40 * percent);
 
-		g.fillRect((Common.placeOnGround - 1) * width, canvas.getHeight() - 35
-				- height, width, 10);
+		g.fillRect(Common.placeOnGround * width - length, canvas.getHeight() - 35
+				- height, length, 10);
 	}
 
 }

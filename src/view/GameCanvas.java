@@ -25,12 +25,16 @@ public class GameCanvas extends Canvas {
 		views.addElement(newView);
 		newView.setCanvas(this);
 	}
+	
+	public void removeView(ViewObject view) {
+		views.removeElement(view);
+	}
 
 	protected void paint(Graphics g) {
 		g.setColor(0, 0, 0);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
-		for (int i = 0; i < views.size(); i++) {
+		for (int i = views.size() - 1; i >= 0; i--) {
 			ViewObject view = (ViewObject) views.elementAt(i);
 			view.paintMe(g);
 		}
@@ -38,11 +42,8 @@ public class GameCanvas extends Canvas {
 
 	protected void pointerPressed(int x, int y) {
 		game.setJump();
+		
 		game.addBullet();
-	}
-
-	public void removeView(ViewObject view) {
-		views.removeElement(view);
 	}
 
 }

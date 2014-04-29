@@ -29,13 +29,13 @@ public class BulletView extends ViewObject {
 
 		int height = (int) (40 * percent);
 		
-		int x = (bullet.getPlace() - 1) * width;
-		float deltax = (width - length) * bullet.getMovedPercent();
+		int x = bullet.getPlace() * width;
+		float deltax = width * bullet.getMovedPercent();
 		x += (int) deltax;
 		
 		int y = canvas.getHeight() - 35 - height;
 
-		g.drawLine(x, y, x + length, y);
+		g.drawLine(x - length, y, x, y);
 	}
 
 }
