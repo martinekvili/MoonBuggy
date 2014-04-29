@@ -16,6 +16,6 @@ public class Common {
 
 	// GAME constants
 
-	public static final int waitTime = 50;
+	public static final int waitTime = 40;
 
 }

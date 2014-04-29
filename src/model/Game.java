@@ -1,12 +1,15 @@
 package model;
 
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.Vector;
 
 import top.Common;
+import top.GameManager;
+import view.AboveGroundView;
+import view.BuggyView;
 import view.BulletView;
 import view.GameCanvas;
+import view.GroundView;
+import view.PointView;
 
 public class Game {
 
@@ -15,14 +18,14 @@ public class Game {
 	private AboveGround aboveGround;
 	
 	private Vector bullets;
-
-	private Timer timer;
+	
+	private GameManager manager;
 
 	private GameCanvas view;
 
 	private int points;
 
-	public Game(GameCanvas gc) {
+	public Game(GameCanvas gc, GameManager m) {
 		ground = new Ground();
 		aboveGround = new AboveGround();
 		
@@ -30,9 +33,15 @@ public class Game {
 		
 		bullets = new Vector();
 
-		view = gc;
+		
+		manager = m;
 
-		timer = new Timer();
+		view = gc;
+		view.setGame(this);
+		view.addView(new GroundView(ground));
+		view.addView(new AboveGroundView(aboveGround));
+		view.addView(new BuggyView(buggy));
+		view.addView(new PointView(this));
 
 		points = 0;
 	}
@@ -69,7 +78,7 @@ public class Game {
 		bullets.removeElement(bullet);
 	}
 
-	private void step() {
+	public void step() {
 		points++;
 
 		ground.step();
@@ -82,26 +91,9 @@ public class Game {
 		buggy.step();
 	}
 
-	public void start() {
-		timer.schedule(new GameStepper(), 0, Common.waitTime);
-	}
-
-	public void stop() {
-		timer.cancel();
-	}
 	
 	public void gameOver() {
-		stop();
-	}
-
-	private class GameStepper extends TimerTask {
-
-		public void run() {
-			step();
-			view.repaint(0, view.getHeight() - 100, view.getHeight(), 100);
-			view.repaint(0, 0, 100, 100);
-		}
-
+		manager.gameOver();
 	}
 	
 }
