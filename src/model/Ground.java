@@ -43,7 +43,7 @@ public class Ground extends Environment {
 	}
 
 	protected boolean isCollision(int where) {
-		return environment.get(Common.placeOnGround) == HOLE;
+		return environment.get(where) == HOLE;
 	}
 
 }
