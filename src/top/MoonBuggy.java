@@ -32,8 +32,6 @@ public class MoonBuggy extends MIDlet implements CommandListener {
 		GameManager gm = new GameManager(this);
 		
 		Display.getDisplay(this).setCurrent(gm.getView());
-		
-		gm.start();
 	}
 	
 	public void endGame() {		

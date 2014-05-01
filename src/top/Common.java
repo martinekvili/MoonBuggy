@@ -12,7 +12,7 @@ public class Common {
 	// BUGGY constants
 
 	public static final int jumpTime = 20;
-	public static final int placeOnGround = 5;
+	public static final int placeOnGround = 3;
 
 	// GAME constants
 

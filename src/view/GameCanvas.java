@@ -71,28 +71,66 @@ public class GameCanvas extends Canvas {
 		}
 		removable.removeAllElements();
 		
-		if (game.isOver()) {
+		int gameState = game.getState();
+		if (gameState != Game.RUNNING) {
+			String string;
+			
+			switch (game.getState()) {
+			
+			case Game.OVER:
+				string = new String("Game Over");
+				break;
+				
+			case Game.STARTED:
+				string = new String("Touch to start!");
+				break;
+				
+			case Game.PAUSED:
+				string = new String("Game Paused");
+				break;
+				
+			default:
+				string = new String("Something's seriously wrong :/");
+				break;
+			
+			}
+			
 			g.setColor(255, 255, 255);
 			Font f = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_BOLD,
 					Font.SIZE_LARGE);
 			g.setFont(f);
-			g.drawString("Game Over", getWidth() / 2, getHeight() / 2,
+			g.drawString(string, getWidth() / 2, getHeight() / 2,
 					Graphics.BASELINE | Graphics.HCENTER);
 		}
+		
 
 		rotater.setImage(screen, getWidth(), getHeight());
 		rotater.paint(graphics);
 	}
 
 	protected void pointerPressed(int x, int y) {
-		if (game.isOver()) {
+		switch (game.getState()) {
+		case Game.OVER:
 			manager.exit();
-		} else if (x > getHeight() - 50 && y > getWidth() - 50) {
+			break;
+			
+		case Game.PAUSED:
 			manager.togglePause();
-		} else if (x < getHeight() / 2 && y < getWidth() / 3) {
-			game.setJump();
-		} else if (x < getHeight() / 2 && y > 2 * getWidth() / 3) {
-			game.addBullet();
+			break;
+		
+		case Game.STARTED:
+			manager.start();
+			break;
+			
+		case Game.RUNNING:
+			if (x > getHeight() - 50 && y > getWidth() - 50) {
+				manager.togglePause();
+			} else if (x < getHeight() / 2 && y < getWidth() / 3) {
+				game.setJump();
+			} else if (x < getHeight() / 2 && y > 2 * getWidth() / 3) {
+				game.addBullet();
+			}
+			break;
 		}
 	}
 

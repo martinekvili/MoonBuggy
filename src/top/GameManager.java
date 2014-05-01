@@ -46,16 +46,19 @@ public class GameManager {
 		timer.schedule(new GameStepper(), 0, Common.waitTime);
 		
 		isRunning = true;
+		game.setState(Game.RUNNING);
 	}
 	
 	public void stop() {
 		timer.cancel();
 		
 		isRunning = false;
+		game.setState(Game.PAUSED);
 	}
 	
 	public void gameOver() {
 		stop();
+		game.setState(Game.OVER);
 	}
 	
 	public void exit() {

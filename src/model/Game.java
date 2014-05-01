@@ -12,6 +12,11 @@ import view.GroundView;
 import view.PointView;
 
 public class Game {
+	
+	public static final int STARTED = 0;
+	public static final int RUNNING = 1;
+	public static final int PAUSED = 2;
+	public static final int OVER = 3;
 
 	private Ground ground;
 	private Buggy buggy;
@@ -23,7 +28,7 @@ public class Game {
 
 	private GameCanvas view;
 	
-	private boolean over;
+	private int state;
 
 	private int points;
 
@@ -46,11 +51,15 @@ public class Game {
 
 		points = 0;
 		
-		over = false;
+		state = STARTED;
+	}
+	
+	public void setState(int newState) {
+		state = newState;
 	}
 
-	public boolean isOver() {
-		return over;
+	public int getState() {
+		return state;
 	}
 
 	public int getPoints() {
@@ -88,7 +97,6 @@ public class Game {
 
 	
 	public void gameOver() {
-		over = true;
 		manager.gameOver();
 	}
 	
