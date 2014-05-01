@@ -65,6 +65,14 @@ public class Bullet implements ActiveObject {
 	}
 
 	private boolean isCollision() {
+		if (aboveGround.isCollision(place)) {
+			aboveGround.removeObstacle(place);
+
+			game.removeBullet(this);
+			exists = false;
+
+			return true;
+		}
 		if (aboveGround.isCollision(place + 1)
 				&& (aboveGround.getMovedPercent() + getMovedPercent() >= 1)) {
 			aboveGround.removeObstacle(place + 1);
