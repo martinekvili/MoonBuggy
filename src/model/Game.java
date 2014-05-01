@@ -22,6 +22,8 @@ public class Game {
 	private GameManager manager;
 
 	private GameCanvas view;
+	
+	private boolean over;
 
 	private int points;
 
@@ -32,7 +34,6 @@ public class Game {
 		buggy = new Buggy(this, ground, aboveGround);
 		
 		bullets = new Vector();
-
 		
 		manager = m;
 
@@ -44,18 +45,12 @@ public class Game {
 		view.addView(new PointView(this));
 
 		points = 0;
+		
+		over = false;
 	}
 
-	public Ground getGround() {
-		return ground;
-	}
-
-	public Buggy getBuggy() {
-		return buggy;
-	}
-	
-	public AboveGround getAboveGround() {
-		return aboveGround;
+	public boolean isOver() {
+		return over;
 	}
 
 	public int getPoints() {
@@ -93,6 +88,7 @@ public class Game {
 
 	
 	public void gameOver() {
+		over = true;
 		manager.gameOver();
 	}
 	

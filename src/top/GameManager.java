@@ -56,7 +56,9 @@ public class GameManager {
 	
 	public void gameOver() {
 		stop();
-		
+	}
+	
+	public void exit() {
 		midlet.endGame();
 	}
 	
@@ -65,8 +67,7 @@ public class GameManager {
 		public void run() {
 			game.step();
 			
-			view.repaint(0, view.getHeight() - 100, view.getHeight(), 100);
-			view.repaint(0, 0, 100, 100);
+			view.repaint();
 		}
 
 	}
