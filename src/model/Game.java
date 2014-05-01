@@ -62,7 +62,7 @@ public class Game {
 	}
 	
 	public void addBullet() {
-		Bullet newBullet = new Bullet(this, aboveGround, Common.placeOnGround + 1, buggy.getJumpPercentage());
+		Bullet newBullet = new Bullet(this, aboveGround, Common.placeOnGround, buggy.getJumpPercentage());
 		
 		bullets.addElement(newBullet);
 		
