@@ -6,7 +6,8 @@ import java.util.TimerTask;
 import javax.microedition.lcdui.Display;
 
 import model.Game;
-import view.GameCanvas;
+import view.GameWindow;
+import view.NameInputWindow;
 
 public class GameManager {
 
@@ -14,7 +15,7 @@ public class GameManager {
 
 	private Game game;
 
-	private GameCanvas view;
+	private GameWindow view;
 
 	private Timer timer;
 
@@ -23,14 +24,14 @@ public class GameManager {
 	public GameManager(MoonBuggy m) {
 		midlet = m;
 
-		view = new GameCanvas(this);
+		view = new GameWindow(this);
 
 		game = new Game(view, this);
 
 		isRunning = false;
 	}
 
-	public GameCanvas getView() {
+	public GameWindow getView() {
 		return view;
 	}
 
@@ -64,7 +65,7 @@ public class GameManager {
 
 	public void exit() {
 		Display.getDisplay(midlet).setCurrent(
-				new NameInput(this, game.getPoints()));
+				new NameInputWindow(this, game.getPoints()));
 	}
 
 	public void setName(String name) {

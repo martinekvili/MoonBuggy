@@ -1,10 +1,10 @@
-package view;
+package view.paintable;
 
 import javax.microedition.lcdui.Graphics;
 
 import model.Ground;
 
-public class GroundView extends ViewObject {
+public class GroundView extends ViewBase {
 
 	private Ground ground;
 

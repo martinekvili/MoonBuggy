@@ -1,4 +1,4 @@
-package top;
+package view;
 
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
@@ -6,7 +6,10 @@ import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.TextField;
 
-public class NameInput extends Form implements CommandListener {
+import top.Common;
+import top.GameManager;
+
+public class NameInputWindow extends Form implements CommandListener {
 	
 	private TextField nameField;
 	
@@ -14,7 +17,7 @@ public class NameInput extends Form implements CommandListener {
 	
 	private GameManager manager;
 
-	public NameInput(GameManager manager, int points) {
+	public NameInputWindow(GameManager manager, int points) {
 		super("Game Over");
 		
 		this.manager = manager;

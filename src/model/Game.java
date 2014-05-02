@@ -4,12 +4,12 @@ import java.util.Vector;
 
 import top.Common;
 import top.GameManager;
-import view.AboveGroundView;
-import view.BuggyView;
-import view.BulletView;
-import view.GameCanvas;
-import view.GroundView;
-import view.PointView;
+import view.GameWindow;
+import view.paintable.AboveGroundView;
+import view.paintable.BuggyView;
+import view.paintable.BulletView;
+import view.paintable.GroundView;
+import view.paintable.PointView;
 
 public class Game {
 	
@@ -26,13 +26,13 @@ public class Game {
 	
 	private GameManager manager;
 
-	private GameCanvas view;
+	private GameWindow view;
 	
 	private int state;
 
 	private int points;
 
-	public Game(GameCanvas gc, GameManager m) {
+	public Game(GameWindow gc, GameManager m) {
 		ground = new Ground();
 		aboveGround = new AboveGround();
 		

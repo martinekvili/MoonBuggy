@@ -47,7 +47,6 @@ public class TopTenScore {
 		try {
 			RecordStore.deleteRecordStore("ScoreStore");
 		} catch (Exception e1) {
-			e1.printStackTrace();
 		}
 
 		RecordStore scoreStore = null;

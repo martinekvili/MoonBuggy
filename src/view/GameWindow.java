@@ -10,8 +10,9 @@ import javax.microedition.lcdui.game.Sprite;
 
 import model.Game;
 import top.GameManager;
+import view.paintable.ViewBase;
 
-public class GameCanvas extends Canvas {
+public class GameWindow extends Canvas {
 
 	private Vector views;
 	private Vector removable;
@@ -23,7 +24,7 @@ public class GameCanvas extends Canvas {
 	private Image screen;
 	private Sprite rotater;
 
-	public GameCanvas(GameManager gameManager) {
+	public GameWindow(GameManager gameManager) {
 		setFullScreenMode(true);
 
 		views = new Vector();
@@ -42,12 +43,12 @@ public class GameCanvas extends Canvas {
 		game = g;
 	}
 
-	public void addView(ViewObject newView) {
+	public void addView(ViewBase newView) {
 		views.addElement(newView);
 		newView.setCanvas(this);
 	}
 
-	public void removeView(ViewObject view) {
+	public void removeView(ViewBase view) {
 		removable.addElement(view);
 	}
 
@@ -62,7 +63,7 @@ public class GameCanvas extends Canvas {
 		g.fillRect(getWidth() - 13, 10, 5, 10);
 
 		for (int i = 0; i < views.size(); i++) {
-			ViewObject view = (ViewObject) views.elementAt(i);
+			ViewBase view = (ViewBase) views.elementAt(i);
 			view.paintMe(g);
 		}
 

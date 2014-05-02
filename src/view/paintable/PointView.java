@@ -1,10 +1,10 @@
-package view;
+package view.paintable;
 
 import javax.microedition.lcdui.Graphics;
 
 import model.Game;
 
-public class PointView extends ViewObject {
+public class PointView extends ViewBase {
 
 	private Game game;
 

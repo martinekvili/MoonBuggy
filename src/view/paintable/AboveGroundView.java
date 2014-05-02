@@ -1,10 +1,10 @@
-package view;
+package view.paintable;
 
 import javax.microedition.lcdui.Graphics;
 
 import model.AboveGround;
 
-public class AboveGroundView extends ViewObject {
+public class AboveGroundView extends ViewBase {
 	
 	private AboveGround model;
 	
