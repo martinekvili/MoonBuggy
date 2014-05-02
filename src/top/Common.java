@@ -17,5 +17,10 @@ public class Common {
 	// GAME constants
 
 	public static final int waitTime = 40;
+	
+	// The properties of the game -> to be serialized
+	
+	public static String lastName = "";
+	public static boolean firstGame = true;
 
 }
