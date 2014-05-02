@@ -12,6 +12,7 @@ public class MenuWindow extends Form implements CommandListener {
 	private Command exit;
 	private Command start;
 	private Command highScores;
+	private Command resetGame;
 	
 	private MoonBuggy midlet;
 	
@@ -26,6 +27,8 @@ public class MenuWindow extends Form implements CommandListener {
 		addCommand(start);
 		highScores = new Command("Highscores", Command.SCREEN, 1);
 		addCommand(highScores);
+		resetGame = new Command("Reset Game", Command.SCREEN, 2);
+		addCommand(resetGame);
 
 		setCommandListener(this);
 	}
@@ -37,6 +40,8 @@ public class MenuWindow extends Form implements CommandListener {
 			midlet.startGame();
 		} else if (c.equals(highScores)) {
 			midlet.showHighScores();
+		} else if (c.equals(resetGame)) {
+			midlet.resetGame();
 		}
 	}
 

@@ -42,28 +42,35 @@ public class TopTenScore {
 		return topTen;
 	}
 
-	public void save(RecordStore store) {
+	public void save() {
+
 		try {
-			System.out.println(store.getNumRecords());
-			for (int i = 1; i <= store.getNumRecords(); i++) {
-				store.deleteRecord(i);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+			RecordStore.deleteRecordStore("ScoreStore");
+		} catch (Exception e1) {
+			e1.printStackTrace();
 		}
 
-		for (int i = 0; i < maxSize; i++) {
-			if (topTen[i] != null) {
-				byte[] name = topTen[i].getName();
-				byte[] score = topTen[i].getScore();
+		RecordStore scoreStore = null;
+		try {
+			scoreStore = RecordStore.openRecordStore("ScoreStore", true);
 
+			for (int i = 0; i < maxSize; i++) {
+				if (topTen[i] != null) {
+					byte[] name = topTen[i].getName();
+					byte[] score = topTen[i].getScore();
+
+					scoreStore.addRecord(name, 0, name.length);
+					scoreStore.addRecord(score, 0, score.length);
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (scoreStore != null) {
 				try {
-					System.out.println(store.addRecord(name, 0, name.length));
-					System.out.println(store.addRecord(score, 0, score.length));
-
-					System.out.println(store.getNumRecords());
+					scoreStore.closeRecordStore();
 				} catch (Exception e) {
-					e.printStackTrace();
 				}
 			}
 		}
@@ -73,22 +80,38 @@ public class TopTenScore {
 		this.topTen = scores;
 	}
 
-	public static TopTenScore load(RecordStore store) {
-		Score[] scores = new Score[10];
+	public static TopTenScore load() {
+		RecordStore scoreStore = null;
 
 		try {
-			System.out.println(store.getNumRecords());
-			for (int i = 1; i <= store.getNumRecords() / 2; i++) {
-				System.out.println(2 * i);
-				byte[] name = store.getRecord(2 * i - 1);
-				byte[] score = store.getRecord(2 * i);
-
-				scores[i - 1] = new Score(name, score);
-			}
+			scoreStore = RecordStore.openRecordStore("ScoreStore", false);
 		} catch (Exception e) {
-			e.printStackTrace();
 		}
 
-		return new TopTenScore(scores);
+		if (scoreStore == null) {
+			return new TopTenScore();
+		}
+
+		else {
+			Score[] scores = new Score[10];
+
+			try {
+				for (int i = 1; i <= scoreStore.getNumRecords() / 2; i++) {
+					byte[] name = scoreStore.getRecord(2 * i - 1);
+					byte[] score = scoreStore.getRecord(2 * i);
+
+					scores[i - 1] = new Score(name, score);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					scoreStore.closeRecordStore();
+				} catch (Exception e) {
+				}
+			}
+
+			return new TopTenScore(scores);
+		}
 	}
 }

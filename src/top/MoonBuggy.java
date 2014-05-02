@@ -13,25 +13,40 @@ public class MoonBuggy extends MIDlet {
 	private TopTenScore highscores;
 
 	protected void startApp() throws MIDletStateChangeException {
-		RecordStore scoreStore = null;
-		try {
-			scoreStore = RecordStore.openRecordStore("ScoreStore", false);
-		} catch (Exception e) {
-		}
-		
-		if (scoreStore == null) {
-			highscores = new TopTenScore();
-		}
-		else {
-			System.out.println("siker");
-			highscores = TopTenScore.load(scoreStore);
-			try {
-				scoreStore.closeRecordStore();
-			} catch (Exception e) {
-			}
-		}
+		highscores = TopTenScore.load();
+
+		initStates();
 
 		showMenu();
+	}
+
+	private void initStates() {
+		RecordStore states = null;
+
+		try {
+			states = RecordStore.openRecordStore("StatesStore", true);
+
+			if (states.getNumRecords() < 2) {
+				states.addRecord(Common.lastName.getBytes(), 0,
+						Common.lastName.getBytes().length);
+
+				byte[] tmp = new byte[1];
+				tmp[0] = Common.firstGame;
+				states.addRecord(tmp, 0, tmp.length);
+			} else {
+				Common.lastName = new String(states.getRecord(1));
+				Common.firstGame = states.getRecord(2)[0];
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (states != null) {
+				try {
+					states.closeRecordStore();
+				} catch (Exception e) {
+				}
+			}
+		}
 	}
 
 	public void startGame() {
@@ -42,10 +57,6 @@ public class MoonBuggy extends MIDlet {
 
 	public void endGame(Score score) {
 		highscores.addScore(score);
-		
-		Score temp = new Score(score.getName(), score.getScore());
-		System.out.println(temp.name);
-		System.out.println(temp.score);
 
 		showMenu();
 	}
@@ -58,7 +69,7 @@ public class MoonBuggy extends MIDlet {
 	public void showMenu() {
 		Display.getDisplay(this).setCurrent(new MenuWindow(this));
 	}
-	
+
 	public void exit() {
 		try {
 			destroyApp(true);
@@ -69,30 +80,36 @@ public class MoonBuggy extends MIDlet {
 	}
 
 	protected void destroyApp(boolean arg0) throws MIDletStateChangeException {
+		highscores.save();
+
+		RecordStore states = null;
+
 		try {
-			RecordStore.deleteRecordStore("ScoreStore");
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-		
-		RecordStore scoreStore = null;
-		try {
-			scoreStore = RecordStore.openRecordStore("ScoreStore", true);
-			highscores.save(scoreStore);
+			states = RecordStore.openRecordStore("StatesStore", false);
+
+			states.setRecord(1, Common.lastName.getBytes(), 0,
+					Common.lastName.getBytes().length);
+
+			byte[] tmp = new byte[1];
+			tmp[0] = Common.firstGame;
+			states.setRecord(2, tmp, 0, tmp.length);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if (scoreStore != null) {
+			if (states != null) {
 				try {
-					scoreStore.closeRecordStore();
+					states.closeRecordStore();
 				} catch (Exception e) {
 				}
-			}	
+			}
 		}
 	}
-	
-	public void clearHighscores() {
+
+	public void resetGame() {
 		highscores = new TopTenScore();
+		
+		Common.lastName = "";
+		Common.firstGame = 1;
 	}
 
 	protected void pauseApp() {

@@ -21,6 +21,11 @@ public class Common {
 	// The properties of the game -> to be serialized
 	
 	public static String lastName = "";
-	public static boolean firstGame = true;
+	
+	public static byte firstGame = 1;
+	
+	public static boolean isFirst() {
+		return firstGame == 1;
+	}
 
 }

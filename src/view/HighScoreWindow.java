@@ -12,7 +12,6 @@ import top.TopTenScore;
 public class HighScoreWindow extends Form implements CommandListener {
 	
 	private Command back;
-	private Command clear;
 	
 	private MoonBuggy midlet;
 	
@@ -32,8 +31,6 @@ public class HighScoreWindow extends Form implements CommandListener {
 		
 		back = new Command("Back", Command.BACK, 0);
 		addCommand(back);
-		clear = new Command("Clear", Command.SCREEN, 0);
-		addCommand(clear);
 		
 		setCommandListener(this);
 	}
@@ -41,8 +38,6 @@ public class HighScoreWindow extends Form implements CommandListener {
 	public void commandAction(Command c, Displayable arg1) {
 		if (c.equals(back)) {
 			midlet.showMenu();
-		} else if (c.equals(clear)) {
-			midlet.clearHighscores();
 		}
 	}
 
