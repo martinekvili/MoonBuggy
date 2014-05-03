@@ -113,9 +113,11 @@ public class MoonBuggy extends MIDlet {
 		Common.lastName = "";
 		Common.firstGame = 1;
 
-		Display.getDisplay(this).setCurrent(
-				new Alert("Success", "The game has been reset to defaults.",
-						null, AlertType.CONFIRMATION), new MenuWindow(this));
+		Alert confirm = new Alert("Success",
+				"The game has been reset to defaults.", null,
+				AlertType.CONFIRMATION);
+		confirm.setTimeout(1000);
+		Display.getDisplay(this).setCurrent(confirm, new MenuWindow(this));
 	}
 
 	protected void pauseApp() {
