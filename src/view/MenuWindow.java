@@ -1,53 +1,72 @@
 package view;
 
-import javax.microedition.lcdui.Command;
-import javax.microedition.lcdui.CommandListener;
+import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Display;
-import javax.microedition.lcdui.Displayable;
-import javax.microedition.lcdui.Form;
+import javax.microedition.lcdui.Font;
+import javax.microedition.lcdui.Graphics;
 
 import top.MoonBuggy;
 
-public class MenuWindow extends Form implements CommandListener {
-	
-	private Command exit;
-	private Command start;
-	private Command tutorial;
-	private Command highScores;
-	private Command resetGame;
-	
-	private MoonBuggy midlet;
-	
-	public MenuWindow(MoonBuggy moonBuggy) {
-		super("Menu");
-		
-		midlet = moonBuggy;
-		
-		exit = new Command("Exit", Command.EXIT, 0);
-		addCommand(exit);
-		start = new Command("Start Game", Command.SCREEN, 0);
-		addCommand(start);
-		highScores = new Command("Highscores", Command.SCREEN, 1);
-		addCommand(highScores);
-		resetGame = new Command("Reset Game", Command.SCREEN, 3);
-		addCommand(resetGame);
-		tutorial = new Command("Tutorial", Command.SCREEN, 2);
-		addCommand(tutorial);
+public class MenuWindow extends Canvas {
 
-		setCommandListener(this);
+	private MoonBuggy midlet;
+
+	private String[] menuItems;
+
+	public MenuWindow(MoonBuggy m) {
+		midlet = m;
+
+		menuItems = new String[] { "Start Game", "Tutorial", "High Scores",
+				"Reset Game", "Exit" };
+
+		setFullScreenMode(true);
 	}
 
-	public void commandAction(Command c, Displayable arg1) {
-		if (c.equals(exit)) {
-			midlet.exit();
-		} else if (c.equals(start)) {
+	protected void paint(Graphics g) {
+		g.setColor(0, 0, 0);
+		g.fillRect(0, 0, getWidth(), getHeight());
+
+		g.setColor(255, 255, 255);
+		Font f = Font.getFont(Font.FACE_MONOSPACE, Font.STYLE_BOLD,
+				Font.SIZE_LARGE);
+		g.setFont(f);
+
+		for (int i = 0; i < menuItems.length; i++) {
+			g.drawString(menuItems[i], getWidth() / 2, getHeight()
+					/ (menuItems.length + 1) * (i + 1), Graphics.BASELINE
+					| Graphics.HCENTER);
+		}
+	}
+
+	protected void pointerPressed(int x, int y) {
+		int place = y * (menuItems.length + 1) * 2;
+		place /= getHeight();
+
+		switch (place) {
+		case 1:
+		case 2:
 			midlet.startGame();
-		} else if (c.equals(highScores)) {
-			midlet.showHighScores();
-		} else if (c.equals(resetGame)) {
-			Display.getDisplay(midlet).setCurrent(new AreYouSureWindow(midlet));
-		} else if (c.equals(tutorial)) {
+			break;
+
+		case 3:
+		case 4:
 			midlet.showTutorial();
+			break;
+
+		case 5:
+		case 6:
+			midlet.showHighScores();
+			break;
+
+		case 7:
+		case 8:
+			Display.getDisplay(midlet).setCurrent(new AreYouSureWindow(midlet));
+			break;
+
+		case 9:
+		case 10:
+			midlet.exit();
+			break;
 		}
 	}
 

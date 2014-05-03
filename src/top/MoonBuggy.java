@@ -78,6 +78,8 @@ public class MoonBuggy extends MIDlet {
 	}
 	
 	public void showTutorial() {
+		Common.firstGame = 0;
+		
 		Display.getDisplay(this).setCurrent(new TutorialVindow(this));
 	}
 
