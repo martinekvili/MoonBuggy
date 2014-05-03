@@ -1,5 +1,7 @@
 package top;
 
+import javax.microedition.lcdui.Alert;
+import javax.microedition.lcdui.AlertType;
 import javax.microedition.lcdui.Display;
 import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
@@ -107,9 +109,13 @@ public class MoonBuggy extends MIDlet {
 
 	public void resetGame() {
 		highscores = new TopTenScore();
-		
+
 		Common.lastName = "";
 		Common.firstGame = 1;
+
+		Display.getDisplay(this).setCurrent(
+				new Alert("Success", "The game has been reset to defaults.",
+						null, AlertType.CONFIRMATION), new MenuWindow(this));
 	}
 
 	protected void pauseApp() {

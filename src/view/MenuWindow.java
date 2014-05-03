@@ -2,6 +2,7 @@ package view;
 
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
+import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Form;
 
@@ -41,7 +42,7 @@ public class MenuWindow extends Form implements CommandListener {
 		} else if (c.equals(highScores)) {
 			midlet.showHighScores();
 		} else if (c.equals(resetGame)) {
-			midlet.resetGame();
+			Display.getDisplay(midlet).setCurrent(new AreYouSureWindow(midlet));
 		}
 	}
 
