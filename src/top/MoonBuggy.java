@@ -9,6 +9,7 @@ import javax.microedition.rms.RecordStore;
 
 import view.HighScoreWindow;
 import view.MenuWindow;
+import view.TutorialVindow;
 
 public class MoonBuggy extends MIDlet {
 
@@ -52,15 +53,32 @@ public class MoonBuggy extends MIDlet {
 	}
 
 	public void startGame() {
-		GameManager gm = new GameManager(this);
+		if (Common.isFirst()) {
+			Common.firstGame = 0;
 
-		Display.getDisplay(this).setCurrent(gm.getView());
+			Alert info = new Alert(
+					"Info",
+					"Because this is your first game, let me show you the tutorial!",
+					null, AlertType.INFO);
+			info.setTimeout(1000);
+			
+			Display.getDisplay(this).setCurrent(info, new TutorialVindow(this));
+		}
+		else {
+			GameManager gm = new GameManager(this);
+
+			Display.getDisplay(this).setCurrent(gm.getView());
+		}
 	}
 
 	public void endGame(Score score) {
 		highscores.addScore(score);
 
 		showMenu();
+	}
+	
+	public void showTutorial() {
+		Display.getDisplay(this).setCurrent(new TutorialVindow(this));
 	}
 
 	public void showHighScores() {

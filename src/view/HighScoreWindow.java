@@ -25,7 +25,7 @@ public class HighScoreWindow extends Form implements CommandListener {
 		Score[] scores = topTen.getScores();
 		for (int i = 0; i < scores.length; i++) {
 			if (scores[i] != null) {
-				append((i + 1) + ": " + scores[i].name + " - " + scores[i].score + "\n");
+				append((i + 1) + ". " + scores[i].name + " - " + scores[i].score + "\n");
 			}
 		}
 		
