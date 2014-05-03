@@ -56,11 +56,13 @@ public class GameManager {
 
 		isRunning = false;
 		game.setState(Game.PAUSED);
+		view.repaint();
 	}
 
 	public void gameOver() {
 		stop();
 		game.setState(Game.OVER);
+		view.repaint();
 	}
 
 	public void exit() {
