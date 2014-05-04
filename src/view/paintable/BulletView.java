@@ -6,7 +6,7 @@ import model.Bullet;
 
 public class BulletView extends ViewBase {
 
-	Bullet bullet;
+	private Bullet bullet;
 
 	private final int length = 5;
 
@@ -27,7 +27,7 @@ public class BulletView extends ViewBase {
 			percent = 1 - percent;
 		}
 
-		int height = (int) (40 * percent);
+		int height = (int) (40 * percent) - 5;
 
 		int x = bullet.getPlace() * width;
 		float deltax = width * bullet.getMovedPercent();
