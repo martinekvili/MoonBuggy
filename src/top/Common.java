@@ -20,7 +20,7 @@ public class Common {
 	
 	// The properties of the game -> to be serialized
 	
-	public static String lastName = "";
+	public static String lastName = "Anonymus";
 	
 	public static byte firstGame = 1;
 	
