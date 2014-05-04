@@ -3,27 +3,35 @@ package model;
 import top.Common;
 import top.Randomizer;
 
-public class Ground extends Environment {
+/**
+ * A földszintet reprezentáló osztály.
+ * 
+ * Itt helyezkednek el a kráterek.
+ */
+public class GroundLevel extends LevelBase {
 
 	public static final int FLAT = 0;
 	public static final int HOLE = 1;
 
+	/**
+	 * Jelzi, hogy volt-e a közelben kráter.
+	 */
 	private int beenHole;
 
-	public Ground() {
+	public GroundLevel() {
 		beenHole = 0;
 	}
-	
+
 	protected int[] getInitialArray() {
 		int[] initialGround = new int[Common.arraySize];
-		
+
 		for (int i = 0; i < initialGround.length; i++) {
 			initialGround[i] = FLAT;
 		}
-		
+
 		return initialGround;
 	}
-	
+
 	protected int getNewElement() {
 		int newElement;
 
@@ -38,7 +46,7 @@ public class Ground extends Environment {
 			newElement = FLAT;
 			beenHole--;
 		}
-		
+
 		return newElement;
 	}
 

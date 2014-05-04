@@ -5,99 +5,168 @@ import java.util.Vector;
 import top.Common;
 import top.GameManager;
 import view.GameWindow;
-import view.paintable.AboveGroundView;
-import view.paintable.BuggyView;
-import view.paintable.BulletView;
-import view.paintable.GroundView;
-import view.paintable.PointView;
+import view.paintable.ViewFactory;
 
+/**
+ * A játékot reprezentáló osztály.
+ */
 public class Game {
-	
+
 	public static final int STARTED = 0;
 	public static final int RUNNING = 1;
 	public static final int PAUSED = 2;
 	public static final int OVER = 3;
 
-	private Ground ground;
-	private Buggy buggy;
-	private AboveGround aboveGround;
-	
-	private Vector bullets;
-	
-	private GameManager manager;
-
-	private GameWindow view;
-	
+	/**
+	 * A játék állapota.
+	 */
 	private int state;
 
+	/**
+	 * A holdjáró.
+	 */
+	private Buggy buggy;
+
+	/**
+	 * A földfelszín feletti terület.
+	 */
+	private AboveGroundLevel aboveGround;
+
+	/**
+	 * Az aktív játékbeli objektumokat tartalmazó adatszerkezet.
+	 */
+	private Vector actives;
+
+	private Vector removables;
+
+	/**
+	 * A játékot menedzselõ osztály.
+	 */
+	private GameManager manager;
+
+	/**
+	 * A játékot megjelenító osztály.
+	 */
+	private GameWindow view;
+
+	/**
+	 * A pontok száma.
+	 */
 	private int points;
 
-	public Game(GameWindow gc, GameManager m) {
-		ground = new Ground();
-		aboveGround = new AboveGround();
-		
-		buggy = new Buggy(this, ground, aboveGround);
-		
-		bullets = new Vector();
-		
+	/**
+	 * A konstruktor.
+	 * 
+	 * @param gw
+	 *            - a játékot megjelenítõ osztály
+	 * @param m
+	 *            - a játékot menedzselõ osztály
+	 */
+	public Game(GameWindow gw, GameManager m) {
 		manager = m;
 
-		view = gc;
+		actives = new Vector();
+		removables = new Vector();
+
+		GroundLevel ground = new GroundLevel();
+		actives.addElement(ground);
+
+		aboveGround = new AboveGroundLevel();
+		actives.addElement(aboveGround);
+
+		buggy = new Buggy(this, ground, aboveGround);
+		actives.addElement(buggy);
+
+		view = gw;
 		view.setGame(this);
-		view.addView(new GroundView(ground));
-		view.addView(new AboveGroundView(aboveGround));
-		view.addView(new BuggyView(buggy));
-		view.addView(new PointView(this));
+		view.addView(ViewFactory.createView(ground));
+		view.addView(ViewFactory.createView(aboveGround));
+		view.addView(ViewFactory.createView(buggy));
+		view.addView(ViewFactory.createView(this));
 
 		points = 0;
-		
+
 		state = STARTED;
 	}
-	
+
+	/**
+	 * Az állapot beállítására szolgáló függvény.
+	 * 
+	 * @param newState
+	 *            - az új állapot
+	 */
 	public void setState(int newState) {
 		state = newState;
 	}
 
+	/**
+	 * Az állapotot lekérdezõ függvény.
+	 * 
+	 * @return az állapot
+	 */
 	public int getState() {
 		return state;
 	}
 
+	/**
+	 * A pontok számát lekérdezõ függvény.
+	 * 
+	 * @return a pontok száma
+	 */
 	public int getPoints() {
 		return points;
 	}
-	
+
+	/**
+	 * A holdjáró ugrását elindító függvény.
+	 */
 	public void setJump() {
 		buggy.setJump();
 	}
-	
+
+	/**
+	 * Az új lövedéket hozzáadó függvény.
+	 */
 	public void addBullet() {
-		Bullet newBullet = new Bullet(this, aboveGround, Common.placeOnGround, buggy.getJumpPercentage());
-		
-		bullets.addElement(newBullet);
-		
-		view.addView(new BulletView(newBullet));
-	}	
-	
-	public void removeBullet(Bullet bullet) {
-		bullets.removeElement(bullet);
+		Bullet newBullet = new Bullet(this, aboveGround, Common.placeOnGround,
+				buggy.getJumpPercentage());
+
+		actives.addElement(newBullet);
+
+		view.addView(ViewFactory.createView(newBullet));
 	}
 
+	/**
+	 * Az elhasznált lövedéket kitörlõ függvény.
+	 * 
+	 * @param bullet
+	 *            - az elhasznált lövedék
+	 */
+	public void removeBullet(Bullet bullet) {
+		removables.addElement(bullet);
+	}
+
+	/**
+	 * A léptetõ függvény.
+	 */
 	public void step() {
 		points++;
 
-		ground.step();
-		aboveGround.step();
-		
-		for (int i = 0; i < bullets.size(); i++) {
-			((ActiveObject) bullets.elementAt(i)).step();
+		for (int i = 0; i < actives.size(); i++) {
+			((IActive) actives.elementAt(i)).step();
 		}
-		
-		buggy.step();
+
+		for (int i = 0; i < removables.size(); i++) {
+			actives.removeElement(removables.elementAt(i));
+		}
+		removables.removeAllElements();
 	}
 
-	
+	/**
+	 * A játék végén hívandó függvény.
+	 */
 	public void gameOver() {
 		manager.gameOver();
 	}
-	
+
 }

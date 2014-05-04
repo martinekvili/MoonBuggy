@@ -5,12 +5,23 @@ import javax.microedition.lcdui.Graphics;
 import model.Buggy;
 import top.Common;
 
+/**
+ * A holdjárót megjelenítõ osztály.
+ */
 public class BuggyView extends ViewBase {
 
 	private final int length = 15;
 
+	/**
+	 * A holdjáró.
+	 */
 	private Buggy buggy;
 
+	/**
+	 * Konstruktor.
+	 * 
+	 * @param b - a holdjáró
+	 */
 	public BuggyView(Buggy b) {
 		buggy = b;
 	}

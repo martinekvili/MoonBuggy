@@ -9,15 +9,34 @@ import model.Game;
 import top.GameManager;
 import view.paintable.ViewBase;
 
+/**
+ * A játék megjelenítéséért felelõs képernyõ.
+ */
 public class GameWindow extends LandscapeWindowBase {
 
+	/**
+	 * A megjelenítendõ objektumok.
+	 */
 	private Vector views;
+
 	private Vector removable;
 
+	/**
+	 * A játék.
+	 */
 	private Game game;
 
+	/**
+	 * A játék menedzsere.
+	 */
 	private GameManager manager;
 
+	/**
+	 * Konstruktor.
+	 * 
+	 * @param gameManager
+	 *            - a játékot menedzselõ osztály
+	 */
 	public GameWindow(GameManager gameManager) {
 		views = new Vector();
 		removable = new Vector();
@@ -25,15 +44,33 @@ public class GameWindow extends LandscapeWindowBase {
 		manager = gameManager;
 	}
 
+	/**
+	 * A játékot beállító függvény.
+	 * 
+	 * @param g
+	 *            - a játék
+	 */
 	public void setGame(Game g) {
 		game = g;
 	}
 
+	/**
+	 * Egy új megjelenítendõ objektumot hozzáadó függvény.
+	 * 
+	 * @param newView
+	 *            - az új megjelenítendõ objektum
+	 */
 	public void addView(ViewBase newView) {
 		views.addElement(newView);
 		newView.setCanvas(this);
 	}
 
+	/**
+	 * Egy megjelenítendõ objektumot kitörlõ függvény.
+	 * 
+	 * @param view
+	 *            - a kitörlendõ objektum
+	 */
 	public void removeView(ViewBase view) {
 		removable.addElement(view);
 	}

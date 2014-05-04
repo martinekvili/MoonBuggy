@@ -2,34 +2,49 @@ package top;
 
 import javax.microedition.rms.RecordStore;
 
-public class TopTenScore {
+/**
+ * A dicsõségtáblát reprezentáló osztály.
+ */
+public class HighScores {
 
-	private static final int maxSize = 10;
-
+	/**
+	 * A dicsõségtábla.
+	 */
 	private Score[] topTen;
 
-	public TopTenScore() {
-		topTen = new Score[maxSize];
+	/**
+	 * Üres dicsõségtáblát létrehozó konstruktor.
+	 */
+	public HighScores() {
+		topTen = new Score[Common.maxHighScoreNumber];
 	}
 
+	/**
+	 * Új pontszámot beillesztõ függvény.
+	 * 
+	 * Ha belefér, beilleszti a sorba, ha nem, akkor nem.
+	 * 
+	 * @param newScore
+	 *            - az új pontszám
+	 */
 	public void addScore(Score newScore) {
-		Score[] newTen = new Score[maxSize];
+		Score[] newTen = new Score[Common.maxHighScoreNumber];
 
 		int i = 0;
 		int j = 0;
-		while (i < maxSize && topTen[j] != null
+		while (i < Common.maxHighScoreNumber && topTen[j] != null
 				&& topTen[j].score > newScore.score) {
 			newTen[i] = topTen[j];
 			i++;
 			j++;
 		}
 
-		if (i < maxSize) {
+		if (i < Common.maxHighScoreNumber) {
 			newTen[i] = newScore;
 			i++;
 		}
 
-		while (i < maxSize && topTen[j] != null) {
+		while (i < Common.maxHighScoreNumber && topTen[j] != null) {
 			newTen[i] = topTen[j];
 			i++;
 			j++;
@@ -38,10 +53,18 @@ public class TopTenScore {
 		topTen = newTen;
 	}
 
+	/**
+	 * A pontszámokat lekérõ függvény.
+	 * 
+	 * @return a pontszámokat tartalmazó tömb
+	 */
 	public Score[] getScores() {
 		return topTen;
 	}
 
+	/**
+	 * A pontszámokat elmentõ függvény.
+	 */
 	public void save() {
 
 		try {
@@ -53,7 +76,7 @@ public class TopTenScore {
 		try {
 			scoreStore = RecordStore.openRecordStore("ScoreStore", true);
 
-			for (int i = 0; i < maxSize; i++) {
+			for (int i = 0; i < Common.maxHighScoreNumber; i++) {
 				if (topTen[i] != null) {
 					byte[] name = topTen[i].getName();
 					byte[] score = topTen[i].getScore();
@@ -75,11 +98,16 @@ public class TopTenScore {
 		}
 	}
 
-	private TopTenScore(Score[] scores) {
+	private HighScores(Score[] scores) {
 		this.topTen = scores;
 	}
 
-	public static TopTenScore load() {
+	/**
+	 * Az elmentett pontszámokat beolvasó függvény.
+	 * 
+	 * @return a beolvasott pontszámokat tartalmazó dicsõségtábla
+	 */
+	public static HighScores load() {
 		RecordStore scoreStore = null;
 
 		try {
@@ -88,7 +116,7 @@ public class TopTenScore {
 		}
 
 		if (scoreStore == null) {
-			return new TopTenScore();
+			return new HighScores();
 		}
 
 		else {
@@ -110,7 +138,7 @@ public class TopTenScore {
 				}
 			}
 
-			return new TopTenScore(scores);
+			return new HighScores(scores);
 		}
 	}
 }

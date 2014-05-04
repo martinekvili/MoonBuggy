@@ -2,22 +2,55 @@ package model;
 
 import top.Common;
 
-public class Bullet implements ActiveObject {
+/**
+ * A lövedéket reprezentáló osztály.
+ */
+public class Bullet implements IActive {
 
-	private static final int stepDivider = 10;
-	private static final int maxDistance = 6;
-
+	/**
+	 * Lépésszámláló.
+	 */
 	private int counter;
 
+	/**
+	 * A lövedék helye.
+	 */
 	private int place;
-	private float height;
 
+	/**
+	 * A lövedék magassága.
+	 */
+	private final float height;
+
+	/**
+	 * A lövedéket tartalmazó játék.
+	 */
 	private Game game;
-	private AboveGround aboveGround;
 
+	/**
+	 * A földfelszín feletti terület, az ütközésdetektáláshoz.
+	 */
+	private AboveGroundLevel aboveGround;
+
+	/**
+	 * A létezést jelzõ flag.
+	 */
 	private boolean exists;
 
-	public Bullet(Game game, AboveGround aboveGround, int place, float height) {
+	/**
+	 * A konstruktor.
+	 * 
+	 * @param game
+	 *            - a lövedéket tartalmazó játék
+	 * @param aboveGround
+	 *            - a földfelszín feletti terület
+	 * @param place
+	 *            - a lövedék kezdeti helye
+	 * @param height
+	 *            - a lövedék magassága
+	 */
+	public Bullet(Game game, AboveGroundLevel aboveGround, int place,
+			float height) {
 		this.game = game;
 		this.aboveGround = aboveGround;
 
@@ -29,16 +62,31 @@ public class Bullet implements ActiveObject {
 		counter = 0;
 	}
 
+	/**
+	 * A magasságot lekérdezõ függvény.
+	 * 
+	 * @return a magasság
+	 */
 	public float getHeight() {
 		return height;
 	}
 
+	/**
+	 * A helyet lekérdezõ függvény.
+	 * 
+	 * @return a hely
+	 */
 	public int getPlace() {
 		return place;
 	}
 
+	/**
+	 * A számláló állapotát lekérdezõ függvény.
+	 * 
+	 * @return a számláló és a lépésosztó hányadosa
+	 */
 	public float getMovedPercent() {
-		return (float) counter / stepDivider;
+		return (float) counter / Common.bulletStepDivider;
 	}
 
 	public void step() {
@@ -48,12 +96,12 @@ public class Bullet implements ActiveObject {
 			return;
 		}
 
-		if (counter == stepDivider) {
+		if (counter == Common.bulletStepDivider) {
 			counter = 0;
 
 			place++;
 
-			if (place == (Common.placeOnGround + maxDistance)) {
+			if (place == (Common.placeOnGround + Common.maxDistance)) {
 				game.removeBullet(this);
 				exists = false;
 				return;
@@ -64,6 +112,11 @@ public class Bullet implements ActiveObject {
 
 	}
 
+	/**
+	 * Az ütközést detektáló függvény.
+	 * 
+	 * @return igaz, ha történt ütközés
+	 */
 	private boolean isCollision() {
 		if (aboveGround.isCollision(place)) {
 			aboveGround.removeObstacle(place);
@@ -86,6 +139,11 @@ public class Bullet implements ActiveObject {
 		return false;
 	}
 
+	/**
+	 * Lekérdezi, hogy létezik-e még a lövedék.
+	 * 
+	 * @return igaz, ha létezik
+	 */
 	public boolean isExisting() {
 		return exists;
 	}

@@ -11,18 +11,27 @@ import view.HighScoreWindow;
 import view.MenuWindow;
 import view.TutorialVindow;
 
+/**
+ * Az alkalmazás MIDlet-e.
+ */
 public class MoonBuggy extends MIDlet {
 
-	private TopTenScore highscores;
+	/**
+	 * A dicsõséglista.
+	 */
+	private HighScores highscores;
 
 	protected void startApp() throws MIDletStateChangeException {
-		highscores = TopTenScore.load();
+		highscores = HighScores.load();
 
 		initStates();
 
 		showMenu();
 	}
 
+	/**
+	 * A játékállapotot betöltõ függvény.
+	 */
 	private void initStates() {
 		RecordStore states = null;
 
@@ -52,6 +61,9 @@ public class MoonBuggy extends MIDlet {
 		}
 	}
 
+	/**
+	 * A játékot indító függvény.
+	 */
 	public void startGame() {
 		if (Common.isFirst()) {
 			Common.firstGame = 0;
@@ -61,37 +73,56 @@ public class MoonBuggy extends MIDlet {
 					"Because this is your first game, let me show you the tutorial!",
 					null, AlertType.INFO);
 			info.setTimeout(1000);
-			
+
 			Display.getDisplay(this).setCurrent(info, new TutorialVindow(this));
-		}
-		else {
+		} else {
 			GameManager gm = new GameManager(this);
 
 			Display.getDisplay(this).setCurrent(gm.getView());
 		}
 	}
 
+	/**
+	 * A játék végén lefutó függvény.
+	 * 
+	 * Hozzáadja a pontszámot a dicsõséglistához.
+	 * 
+	 * @param score
+	 *            - az elért pontszám
+	 */
 	public void endGame(Score score) {
 		highscores.addScore(score);
 
 		showMenu();
 	}
-	
+
+	/**
+	 * A tutorialt kirakó függvény.
+	 */
 	public void showTutorial() {
 		Common.firstGame = 0;
-		
+
 		Display.getDisplay(this).setCurrent(new TutorialVindow(this));
 	}
 
+	/**
+	 * A dicsõséglistát kirakó függvény.
+	 */
 	public void showHighScores() {
 		Display.getDisplay(this).setCurrent(
 				new HighScoreWindow(this, highscores));
 	}
 
+	/**
+	 * A menüt kirakó függvény.
+	 */
 	public void showMenu() {
 		Display.getDisplay(this).setCurrent(new MenuWindow(this));
 	}
 
+	/**
+	 * Az alkalmazást bezáró függvény.
+	 */
 	public void exit() {
 		try {
 			destroyApp(true);
@@ -127,10 +158,13 @@ public class MoonBuggy extends MIDlet {
 		}
 	}
 
+	/**
+	 * A játékot reset-elõ függvény.
+	 */
 	public void resetGame() {
-		highscores = new TopTenScore();
+		highscores = new HighScores();
 
-		Common.lastName = "";
+		Common.lastName = "Anonymus";
 		Common.firstGame = 1;
 
 		Alert confirm = new Alert("Success",

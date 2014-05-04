@@ -4,10 +4,21 @@ import javax.microedition.lcdui.Graphics;
 
 import model.Game;
 
+/**
+ * A pontszámot megjelenítõ osztály.
+ */
 public class PointView extends ViewBase {
 
+	/**
+	 * A játék.
+	 */
 	private Game game;
 
+	/**
+	 * Konstruktor.
+	 * 
+	 * @param g - a játék
+	 */
 	public PointView(Game g) {
 		game = g;
 	}

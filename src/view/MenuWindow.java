@@ -7,6 +7,9 @@ import javax.microedition.lcdui.Graphics;
 
 import top.MoonBuggy;
 
+/**
+ * A menüt megjelenítõ képernyõ.
+ */
 public class MenuWindow extends Canvas {
 
 	private MoonBuggy midlet;

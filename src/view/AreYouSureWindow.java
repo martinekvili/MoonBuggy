@@ -8,6 +8,9 @@ import javax.microedition.lcdui.Displayable;
 
 import top.MoonBuggy;
 
+/**
+ * A játék reset-elésénél rákérdezõ képernyõ.
+ */
 public class AreYouSureWindow extends Alert implements CommandListener {
 	
 	private Command ok;

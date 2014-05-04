@@ -4,12 +4,24 @@ import javax.microedition.lcdui.Graphics;
 
 import model.Bullet;
 
+/**
+ * A lövedéket megjelenítõ osztály.
+ */
 public class BulletView extends ViewBase {
-
-	private Bullet bullet;
 
 	private final int length = 5;
 
+	/**
+	 * A lövedék.
+	 */
+	private Bullet bullet;
+
+	/**
+	 * Konstruktor.
+	 * 
+	 * @param b
+	 *            - a lövedék
+	 */
 	public BulletView(Bullet b) {
 		bullet = b;
 	}

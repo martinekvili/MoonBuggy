@@ -7,6 +7,9 @@ import javax.microedition.lcdui.Image;
 
 import top.MoonBuggy;
 
+/**
+ * A tutorialt megjelenítõ képernyõ.
+ */
 public class TutorialVindow extends LandscapeWindowBase {
 
 	private static final int frameNumber = 8;
