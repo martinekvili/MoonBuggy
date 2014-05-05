@@ -45,7 +45,7 @@ public class BulletView extends ViewBase {
 		float deltax = width * bullet.getMovedPercent();
 		x += (int) deltax;
 
-		int y = canvas.getHeight() - 35 - height;
+		int y = canvas.getHeight() - 55 - height;
 
 		g.drawLine(x - length, y, x, y);
 	}

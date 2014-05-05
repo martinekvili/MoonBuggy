@@ -30,7 +30,7 @@ public class AboveGroundView extends ViewBase {
 		int deltax = (int) (model.getMovedPercent() * width);
 		for (int i = 0; i < model.size(); i++) {
 			if (model.get(i) == AboveGroundLevel.OBSTACLE) {
-				g.fillRect(i * width - deltax, canvas.getHeight() - 50,
+				g.fillRect(i * width - deltax, canvas.getHeight() - 70,
 						width - 1, 20);
 			}
 		}

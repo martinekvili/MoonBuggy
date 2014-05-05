@@ -9,6 +9,9 @@ import model.GroundLevel;
  */
 public class GroundView extends ViewBase {
 
+	private final int flatHeight = 40;
+	private final int holeHeight = 25;
+
 	/**
 	 * A földfelszín.
 	 */
@@ -17,7 +20,8 @@ public class GroundView extends ViewBase {
 	/**
 	 * Konstruktor.
 	 * 
-	 * @param g - a földfelszín
+	 * @param g
+	 *            - a földfelszín
 	 */
 	public GroundView(GroundLevel g) {
 		ground = g;
@@ -29,10 +33,11 @@ public class GroundView extends ViewBase {
 		int deltax = (int) (ground.getMovedPercent() * width);
 		for (int i = 0; i < ground.size(); i++) {
 			if (ground.get(i) == GroundLevel.FLAT) {
-				g.fillRect(i * width - deltax, canvas.getHeight() - 20, width,
-						20);
+				g.fillRect(i * width - deltax, canvas.getHeight() - flatHeight,
+						width, flatHeight);
 			} else {
-				g.fillRect(i * width - deltax, canvas.getHeight() - 5, width, 5);
+				g.fillRect(i * width - deltax, canvas.getHeight() - holeHeight,
+						width, holeHeight);
 			}
 		}
 	}

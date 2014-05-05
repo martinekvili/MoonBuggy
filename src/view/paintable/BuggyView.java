@@ -37,7 +37,7 @@ public class BuggyView extends ViewBase {
 		int height = (int) (40 * percent);
 
 		g.fillRect(Common.placeOnGround * width - length, canvas.getHeight()
-				- 35 - height, length, 10);
+				- 55 - height, length, 10);
 	}
 
 }
