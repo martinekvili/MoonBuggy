@@ -12,22 +12,23 @@ import top.MoonBuggy;
  * A játék reset-elésénél rákérdezõ képernyõ.
  */
 public class AreYouSureWindow extends Alert implements CommandListener {
-	
+
 	private Command ok;
 	private Command back;
-	
+
 	private MoonBuggy midlet;
-	
+
 	public AreYouSureWindow(MoonBuggy m) {
-		super("Attention", "Are you sure you want to reset the game?", null, AlertType.WARNING);
-		
+		super("Attention", "Are you sure you want to reset the game?", null,
+				AlertType.WARNING);
+
 		midlet = m;
-		
+
 		ok = new Command("Yes", Command.OK, 0);
 		addCommand(ok);
 		back = new Command("No", Command.BACK, 0);
 		addCommand(back);
-		
+
 		setCommandListener(this);
 	}
 
@@ -37,7 +38,7 @@ public class AreYouSureWindow extends Alert implements CommandListener {
 		} else if (c.equals(back)) {
 			midlet.showMenu();
 		}
-		
+
 	}
 
 }

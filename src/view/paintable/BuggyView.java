@@ -20,7 +20,8 @@ public class BuggyView extends ViewBase {
 	/**
 	 * Konstruktor.
 	 * 
-	 * @param b - a holdjáró
+	 * @param b
+	 *            - a holdjáró
 	 */
 	public BuggyView(Buggy b) {
 		buggy = b;

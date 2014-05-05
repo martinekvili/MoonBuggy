@@ -17,7 +17,8 @@ public class PointView extends ViewBase {
 	/**
 	 * Konstruktor.
 	 * 
-	 * @param g - a játék
+	 * @param g
+	 *            - a játék
 	 */
 	public PointView(Game g) {
 		game = g;
